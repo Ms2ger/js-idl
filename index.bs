@@ -1,0 +1,82 @@
+<pre class="metadata">
+Title: JavaScript with IDL
+Shortname: JS-IDL
+Status: ED
+Group: webplatform
+Mailing list: public-script-coord@w3.org
+Mailing List Archives: https://lists.w3.org/Archives/Public/public-script-coord/
+Editor: Ms2ger, Igalia, Ms2ger@igalia.com
+Abstract: This document defines some JavaScript APIs using Web IDL.
+Default Biblio Status: current
+ED: http://www.example.com/
+Level: 1
+</pre>
+
+# The {{Date_}} interface
+
+<pre class="idl">
+[Exposed=Window,
+ Constructor,
+ Constructor(any value),
+ Constructor(unrestricted double year, optional unrestricted double month = 0, optional unrestricted double date = 1, optional unrestricted double hours = 0, optional unrestricted double minutes = 0, optional unrestricted double seconds = 0, optional unrestricted double ms = 0)]
+interface Date_ {
+  static double now();
+  [Length=1] static unrestricted double parse(optional DOMString string = "undefined");
+  [Length=7] static unrestricted double UTC(optional unrestricted double year, optional unrestricted double month = 0, optional unrestricted double date = 1, optional unrestricted double hours = 0, optional unrestricted double minutes = 0, optional unrestricted double seconds = 0, optional unrestricted double ms = 0);
+
+  unrestricted double getDate();
+  unrestricted double getDay();
+  unrestricted double getFullYear();
+  unrestricted double getHours();
+  unrestricted double getMilliseconds();
+  unrestricted double getMinutes();
+  unrestricted double getMonth();
+  unrestricted double getSeconds();
+  unrestricted double getTime();
+  unrestricted double getTimeZoneOffset();
+  unrestricted double getUTCDate();
+  unrestricted double getUTCDay();
+  unrestricted double getUTCFullYear();
+  unrestricted double getUTCHours();
+  unrestricted double getUTCMilliseconds();
+  unrestricted double getUTCMinutes();
+  unrestricted double getUTCMonth();
+  unrestricted double getUTCSeconds();
+  [Length=1] unrestricted double setDate(optional unrestricted double date);
+  [Length=3] unrestricted double setFullYear(optional unrestricted double year, optional unrestricted double month, optional unrestricted double date);
+  [Length=4] unrestricted double setHours(optional unrestricted double hours, optional unrestricted double minutes, optional unrestricted double seconds, optional unrestricted double ms);
+  [Length=1] unrestricted double setMilliseconds(optional unrestricted double ms);
+  [Length=3] unrestricted double setMinutes(optional unrestricted double minutes, optional unrestricted double seconds, optional unrestricted double ms);
+  [Length=2] unrestricted double setMonth(optional unrestricted double month, optional unrestricted double date);
+  [Length=2] unrestricted double setSeconds(optional unrestricted double seconds, optional unrestricted double ms);
+  [Length=1] unrestricted double setTime(optional unrestricted double time);
+  [Length=1] unrestricted double setUTCDate(optional unrestricted double date);
+  [Length=3] unrestricted double setUTCFullYear(optional unrestricted double year, optional unrestricted double month, optional unrestricted double date);
+  [Length=4] unrestricted double setUTCHours(optional unrestricted double hours, optional unrestricted double minutes, optional unrestricted double seconds, optional unrestricted double ms);
+  [Length=1] unrestricted double setUTCMilliseconds(optional unrestricted double ms);
+  [Length=3] unrestricted double setUTCMinutes(optional unrestricted double minutes, optional unrestricted double seconds, optional unrestricted double ms);
+  [Length=2] unrestricted double setUTCMonth(optional unrestricted double month, optional unrestricted double date);
+  [Length=2] unrestricted double setUTCSeconds(optional unrestricted double seconds, optional unrestricted double ms);
+  DOMString toDateString();
+  DOMString toISOString();
+  // toJSON();
+  unrestricted double toLocaleDateString(optional any reserved1, optional any reserved2);
+  unrestricted double toLocaleString(optional any reserved1, optional any reserved2);
+  unrestricted double toLocaleTimeString(optional any reserved1, optional any reserved2);
+  DOMString toString();
+  DOMString toTimeString();
+  DOMString toUTCString();
+  unrestricted double valueOf();
+  // @@toPrimitive
+};
+</pre>
+
+Issue: Can't call it "Date" because of https://github.com/plinss/widlparser/issues/36
+
+Issue: No support for calling {{Date_}} without "new".
+
+Issue: "Date.length" property will be zero. (Can be fixed with [Length] and https://github.com/heycam/webidl/issues/636.)
+
+Issue: toJSON needs to be generic for some reason; repurpose [LenientThis]?
+
+Issue: Symbol-named properties are not yet supported.
